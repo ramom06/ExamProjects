@@ -1,0 +1,9 @@
+@for (provider of allproviders; track provider.id) {
+  <div>
+    <h3>{{provider.name}}</h3>
+    @for (product of provider.products; track product.id) {
+      <a [routerLink]="['/products',product.id]"> {{product.name}} - {{product.price}}€</a>
+      <p>{{product.description}}</p>
+    }
+  </div>
+}

@@ -1,0 +1,11 @@
+<h3>Shipping Prices</h3>
+<!-- Como es observable eso quiere decir que le pasará los datos
+     pero como aún no tiene los datos hay que hacerlo asincrona-->
+@for (shipping of shippingCosts | async; track shipping) {
+  <div class="shipping-item">
+    <span>{{ shipping.type }}</span>
+    <span>{{ shipping.price | currency }}</span>
+  </div>
+}
+
+
