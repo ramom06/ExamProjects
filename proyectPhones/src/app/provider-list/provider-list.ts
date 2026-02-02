@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Provider, providers} from '../provider';
+import {ChangeDetectorRef, Component, inject, OnInit} from '@angular/core';
+import {Provider, ProviderService} from '../provider';
 import {RouterLink} from '@angular/router';
 
 @Component({
@@ -12,11 +12,14 @@ import {RouterLink} from '@angular/router';
 })
 export class ProviderList implements OnInit {
   allproviders: Provider[] |undefined;
+  providerService = inject(ProviderService);
+  private cdr = inject(ChangeDetectorRef);
 
   constructor() {
   }
 
-  ngOnInit(): void {
-    this.allproviders = [...providers]
+  async ngOnInit(): Promise<void> {
+    this.allproviders = await this.providerService.getProviders()
+    this.cdr.markForCheck();
     }
 }

@@ -12,11 +12,4 @@ import {BehaviorSubject} from 'rxjs';
   styleUrl: './top-bar.css',
 })
 export class TopBar {
-  // 1. Solo declaramos la variable y su tipo
-  totalItems$: BehaviorSubject<number>;
-
-  constructor(public cartService: CartService) {
-    // 2. Asignamos el valor aquí dentro, una vez inyectado el servicio
-    this.totalItems$ = this.cartService.cartCount;
-  }
 }

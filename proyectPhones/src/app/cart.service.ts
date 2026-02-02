@@ -10,8 +10,7 @@ export class CartService {
   //En este array guardamos los productos cuando inicialices el carrito
   items: Product[] = [];
 
-  //Creamos el emisor
-  public cartCount = new BehaviorSubject<number>(0);
+
 
   // Exponemos el emisor como un Observable para que otros lo lean
 
@@ -20,7 +19,6 @@ export class CartService {
 
   addToCart(product: Product) {
     this.items.push(product);
-    this.cartCount.next(this.items.length);
   }
 
   getItems() {
