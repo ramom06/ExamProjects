@@ -1,9 +1,0 @@
-@if (product){
-  <h3>{{ product.name }}</h3>
-  <!-- Currency sirve para transformar el precio a texto -->
-  <h4>{{ product.price | currency }}</h4>
-  <p>{{ product.description }}</p>
-  <a [routerLink]="['/providers-details', product.id]">Proveedor</a>
-  <br>
-  <button type="button" (click)="addToCart(product)">Buy</button>
-}
