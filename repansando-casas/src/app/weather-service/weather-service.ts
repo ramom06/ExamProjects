@@ -1,7 +1,7 @@
-import {Component, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'  // ← ESTO ES CRÍTICO
+  providedIn: 'root'
 })
 
 export class WeatherService {
