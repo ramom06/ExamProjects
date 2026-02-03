@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, inject} from '@angular/core';
+import {ChangeDetectorRef, Component, computed, inject, signal} from '@angular/core';
 import {HousingLocation} from '../housing-location/housing-location';
 import { HousingLocationInfo } from '../housing-location';
 import {HousingService} from '../housing-service';
@@ -17,34 +17,38 @@ import {HousingService} from '../housing-service';
       </form>
     </section>
     <section class="results">
-      @for (housingLocation of filteredLocationList; track $index){
+      @for (housingLocation of filteredLocationList(); track $index){
         <app-housing-location [housingLocation]="housingLocation"></app-housing-location>
       }
     </section>
   `,  styleUrl: './home.css',
 })
 export class Home {
-  filteredLocationList: HousingLocationInfo[] = [];
-  housingLocationList: HousingLocationInfo[] = [];
+  filterText = signal<string>('');
+  housingLocationList = signal<HousingLocationInfo[]>([]);
   housingService: HousingService = inject(HousingService);
   private chageDetectorRef = inject(ChangeDetectorRef);
 
+  filteredLocationList = computed(() => {
+    const list = this.housingLocationList();
+    const text = this.filterText().toLowerCase();
+
+    if (!text) return list;
+
+    return list.filter(location =>
+      location?.city.toLowerCase().includes(text)
+    );
+  });
+
   constructor() {
-    this.housingService.getAllHousingLocations().then((housingLocationList: HousingLocationInfo[]) => {
-      this.housingLocationList = housingLocationList;
-      this.filteredLocationList = housingLocationList;
+    this.housingService.getAllHousingLocations().then((list: HousingLocationInfo[]) => {
+      this.housingLocationList.set(list);
       this.chageDetectorRef.markForCheck()
     });
   }
 
   filterResults(text: string) {
-    if (!text) {
-      this.filteredLocationList = this.housingLocationList;
-      return;
-    }
-
-    this.filteredLocationList = this.housingLocationList.filter(
-      housingLocation => housingLocation?.city.toLowerCase().includes(text.toLowerCase())
-    );
+    // Solo actualizamos el signal del texto y Angular hace el resto
+    this.filterText.set(text);
   }
 }

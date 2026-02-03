@@ -8,7 +8,7 @@ import {HousingProvider} from './housing-provider';
 
 export class HousingService implements HousingProvider {
   private readonly apiUrl = 'http://localhost:3000/locations';
-  private readonly localUrl = '/assets/db.json';
+  private readonly localUrl = "db.json";
 
   async getAllHousingLocations(): Promise<HousingLocationInfo[]> {
     try {
@@ -18,7 +18,6 @@ export class HousingService implements HousingProvider {
       return await response.json();
     } catch (error) {
       // Activación de datos locales
-      console.warn('Activando datos de emergencia desde assets...');
       const fallback = await fetch(this.localUrl);
       const data = await fallback.json();
       return data.locations; // Retorna los datos estáticos
