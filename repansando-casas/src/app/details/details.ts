@@ -5,12 +5,14 @@ import { ActivatedRoute } from '@angular/router';
 import {HousingService} from '../housing-service';
 import {HousingLocationInfo} from '../housing-location';
 import {WeatherService} from '../weather-service/weather-service';
+import {MapService} from '../map-service/map-service';
 
 @Component({
   selector: 'app-details',
   imports: [
     ReactiveFormsModule,
-    CurrencyPipe
+    CurrencyPipe,
+    MapService
   ],
   template: `
     <article>
@@ -27,7 +29,9 @@ import {WeatherService} from '../weather-service/weather-service';
           <li>Does this location have wifi: {{ housingLocation?.wifi }}</li>
           <li>Does this location have laundry: {{ housingLocation?.laundry }}</li>
           <li>Price: {{ housingLocation?.price | currency }}</li>
-          <li>Cords: Latitude: {{ housingLocation?.coordinate?.latitude }}, Longitude: {{ housingLocation?.coordinate?.longitude }},</li>
+          <li>Cords: Latitude: {{ housingLocation?.coordinate?.latitude }},
+            Longitude: {{ housingLocation?.coordinate?.longitude }},
+          </li>
         </ul>
 
         <section class="weather-card">
@@ -46,7 +50,6 @@ import {WeatherService} from '../weather-service/weather-service';
             <p><strong>Sensación térmica:</strong> {{ weatherData.current.feelslike_c }}°C</p>
           </div>
         </section>
-
       </section>
       <section class="listing-apply">
         <h2 class="section-heading">Apply now to live here</h2>
@@ -62,6 +65,13 @@ import {WeatherService} from '../weather-service/weather-service';
           <button type="submit" class="primary">Apply now</button>
         </form>
       </section>
+      @if(housingLocation){
+        <app-map-service [latitude]="housingLocation.coordinate.latitude"
+                         [longitude]="housingLocation.coordinate.longitude"
+                         [title]="housingLocation.name">
+
+        </app-map-service>
+      }
     </article>
   `,  styleUrl: './details.css',
 })
@@ -83,7 +93,7 @@ export class Details implements OnInit {
   });
 
   constructor() {
-    const housingLocationId = parseInt(this.route.snapshot.params['id'], 10);
+    const housingLocationId = this.route.snapshot.params['id'];
 
     this.housingService.getHousingLocationById(housingLocationId).then(housingLocation => {
       this.housingLocation = housingLocation;
@@ -102,7 +112,7 @@ export class Details implements OnInit {
   }
 
   ngOnInit(): void {
-    // RECUPERAR: Al cargar la página, buscamos si hay algo guardado
+    //Al cargar la página, buscamos si hay algo guardado
     const savedData = localStorage.getItem('application-data');
     if (savedData) {
       // Usamos patchValue para rellenar el formulario con lo que recuperamos
@@ -111,7 +121,7 @@ export class Details implements OnInit {
 
   submitApplication() {
     if (this.applyForm.valid) {
-      // GUARDAR: Guardamos los datos actuales en el navegador
+      //Guardamos los datos actuales en el navegador
       localStorage.setItem('application-data', JSON.stringify(this.applyForm.value));
 
       this.housingService.submitApplication(

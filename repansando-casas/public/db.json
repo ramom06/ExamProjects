@@ -1,7 +1,7 @@
 {
   "locations": [
     {
-      "id": 0,
+      "id": "0",
       "name": "Acme Fresh Start Housing",
       "city": "Chicago",
       "state": "IL",
@@ -17,7 +17,7 @@
       "available": true
     },
     {
-      "id": 1,
+      "id": "1",
       "name": "A113 Transitional Housing",
       "city": "Santa Monica",
       "state": "CA",
@@ -33,7 +33,7 @@
       "available": false
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Warm Beds Housing Support",
       "city": "Juneau",
       "state": "AK",
@@ -49,7 +49,7 @@
       "available": true
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Homesteady Housing",
       "city": "Chicago",
       "state": "IL",
@@ -65,23 +65,23 @@
       "available": true
     },
     {
-      "id": 4,
-      "name": "Happy Homes Group",
+      "id": "4",
+      "name": "Happy Homes Group Ramon",
       "city": "Gary",
       "state": "IN",
       "photo": "https://angular.io/assets/images/tutorials/faa/krzysztof-hepner-978RAXoXnH4-unsplash.jpg",
       "availableUnits": 1,
+      "price": 800,
       "wifi": true,
       "laundry": false,
+      "available": true,
       "coordinate": {
-        "latitude": 41.5934,
-        "longitude": -87.3464
-      },
-      "price": 800,
-      "available": true
+        "latitude": 40.4167,
+        "longitude": -3.7037
+      }
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Hopeful Apartment Group",
       "city": "Oakland",
       "state": "CA",
@@ -97,7 +97,7 @@
       "available": true
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Seriously Safe Towns",
       "city": "Oakland",
       "state": "CA",
@@ -106,14 +106,14 @@
       "wifi": true,
       "laundry": true,
       "coordinate": {
-        "latitude": 37.8000,
-        "longitude": -122.2500
+        "latitude": 37.8,
+        "longitude": -122.25
       },
       "price": 1800,
       "available": true
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Hopeful Housing Solutions",
       "city": "Oakland",
       "state": "CA",
@@ -122,14 +122,14 @@
       "wifi": true,
       "laundry": true,
       "coordinate": {
-        "latitude": 37.8100,
-        "longitude": -122.2800
+        "latitude": 37.81,
+        "longitude": -122.28
       },
       "price": 1450,
       "available": true
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Seriously Safe Towns",
       "city": "Oakland",
       "state": "CA",
@@ -138,14 +138,14 @@
       "wifi": false,
       "laundry": false,
       "coordinate": {
-        "latitude": 37.7900,
-        "longitude": -122.2600
+        "latitude": 37.79,
+        "longitude": -122.26
       },
       "price": 1300,
       "available": true
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Capital Safe Towns",
       "city": "Portland",
       "state": "OR",

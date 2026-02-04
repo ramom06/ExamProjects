@@ -13,7 +13,9 @@ import {HousingLocation} from './housing-location/housing-location';
         <header class="brand-name">
           <img class="brand-logo" src="/assets/logo.svg" alt="logo" aria-hidden="true">
         </header>
-      </a>
+      </a>          <button routerLink='/form'>Crear</button>
+
+
       <section class="content">
         <router-outlet></router-outlet>
       </section>

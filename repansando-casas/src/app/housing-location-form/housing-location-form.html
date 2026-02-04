@@ -1,0 +1,85 @@
+  <div class="container mt-5">
+    <h2 class="mb-4">Añadir nueva vivienda</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="row g-3">
+
+        <div class="col-md-8">
+          <label class="form-label">Nombre / Título *</label>
+          <input type="text" class="form-control" formControlName="name" [class.is-invalid]="form.controls.name.touched && form.controls.name.invalid">
+
+          @if (form.controls.name.touched && form.controls.name.invalid) {
+            <div class="invalid-feedback">
+              @if (form.controls.name.errors?.['required']) { Obligatorio }
+              @if (form.controls.name.errors?.['minlength']) { Mínimo 3 caracteres }
+            </div>
+          }
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Ciudad *</label>
+      <input type="text" class="form-control" formControlName="city" [class.is-invalid]="form.controls.city.touched && form.controls.city.invalid">
+      @if (form.controls.city.touched && form.controls.city.invalid) {
+        <div class="invalid-feedback">Obligatorio</div>
+      }
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Estado / Provincia *</label>
+      <input type="text" class="form-control" formControlName="state"
+             [class.is-invalid]="form.controls.state.touched && form.controls.state.invalid">
+      @if (form.controls.state.touched && form.controls.state.invalid) {
+        <div class="invalid-feedback">Obligatorio</div>
+      }
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Unidades disponibles *</label>
+      <input type="number" class="form-control" formControlName="availableUnits" min="1"
+             [class.is-invalid]="form.controls.availableUnits.touched && form.controls.availableUnits.invalid">
+      @if (form.controls.availableUnits.touched && form.controls.availableUnits.invalid) {
+        <div class="invalid-feedback">Mínimo 1</div>
+      }
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Precio por noche (€) *</label>
+      <input type="number" class="form-control" formControlName="price"
+             [class.is-invalid]="form.controls.price.touched && form.controls.price.invalid">
+      @if (form.controls.price.touched && form.controls.price.invalid) {
+        <div class="invalid-feedback">Obligatorio (mínimo 0)</div>
+      }
+    </div>
+
+    <div class="col-12 mt-4">
+      <h5 class="mb-3">Servicios y Disponibilidad</h5>
+
+      <div class="form-check form-switch form-check-inline">
+        <input class="form-check-input" type="checkbox" id="wifi" formControlName="wifi">
+        <label class="form-check-label" for="wifi">Tiene WiFi</label>
+      </div>
+
+      <div class="form-check form-switch form-check-inline">
+        <input class="form-check-input" type="checkbox" id="laundry" formControlName="laundry">
+        <label class="form-check-label" for="laundry">Tiene Lavandería</label>
+      </div>
+
+      <div class="form-check form-check-inline ms-3">
+        <input class="form-check-input" type="checkbox" id="available" formControlName="available">
+        <label class="form-check-label" for="available"><strong>Disponible ahora</strong></label>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="mt-5 border-top pt-4">
+    <button type="submit" class="btn btn-primary btn-lg me-3" [disabled]="form.invalid || submitting">
+      @if (submitting) {
+        <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+      }
+      Guardar vivienda
+    </button>
+    <button type="button" class="btn btn-outline-secondary btn-lg" (click)="cancel()">
+      Cancelar
+    </button>
+  </div>
+</form>
