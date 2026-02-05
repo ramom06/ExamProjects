@@ -1,0 +1,20 @@
+<form [formGroup]="applyForm" (submit)="submitApplication()">
+  <label for="first-name">First Name</label>
+  <input id="first-name" type="text" formControlName="firstName">
+
+  <label for="tel">Telefono</label>
+  <input id="tel" type="text" formControlName="telefono">
+
+  <label for="email">Email</label>
+  <input id="email" type="email" formControlName="email">
+
+  <label for="visitDate">Fecha de visita</label>
+  <input id="visitDate" type="date"  formControlName="visitDate">
+
+  <label for="coment">Comentario</label>
+  <textarea id="coment" formControlName="comment"></textarea>
+
+  <label for="privacity">Policita de privacidad</label>
+  <input id="privacity" type="checkbox" formControlName="privacity">
+  <button type="submit" class="primary">Apply now</button>
+</form>

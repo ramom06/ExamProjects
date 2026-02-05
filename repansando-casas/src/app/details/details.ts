@@ -6,13 +6,15 @@ import {HousingService} from '../housing-service';
 import {HousingLocationInfo} from '../housing-location';
 import {WeatherService} from '../weather-service/weather-service';
 import {MapService} from '../map-service/map-service';
+import {DetailsForm} from '../details-form/details-form';
 
 @Component({
   selector: 'app-details',
   imports: [
     ReactiveFormsModule,
     CurrencyPipe,
-    MapService
+    MapService,
+    DetailsForm
   ],
   template: `
     <article>
@@ -53,30 +55,19 @@ import {MapService} from '../map-service/map-service';
       </section>
       <section class="listing-apply">
         <h2 class="section-heading">Apply now to live here</h2>
-        <form [formGroup]="applyForm" (submit)="submitApplication()">
-          <label for="first-name">First Name</label>
-          <input id="first-name" type="text" formControlName="firstName">
-
-          <label for="last-name">Last Name</label>
-          <input id="last-name" type="text" formControlName="lastName">
-
-          <label for="email">Email</label>
-          <input id="email" type="email" formControlName="email">
-          <button type="submit" class="primary">Apply now</button>
-        </form>
+        <app-details-form></app-details-form>
       </section>
       @if(housingLocation){
         <app-map-service [latitude]="housingLocation.coordinate.latitude"
                          [longitude]="housingLocation.coordinate.longitude"
                          [title]="housingLocation.name">
-
         </app-map-service>
       }
     </article>
   `,  styleUrl: './details.css',
 })
 
-export class Details implements OnInit {
+export class Details{
 
   route: ActivatedRoute = inject(ActivatedRoute);
   weatherService = inject(WeatherService);
@@ -86,11 +77,7 @@ export class Details implements OnInit {
   housingLocation: HousingLocationInfo | undefined;
   weatherData: any;
 
-  applyForm = new FormGroup({
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email])
-  });
+
 
   constructor() {
     const housingLocationId = this.route.snapshot.params['id'];
@@ -109,26 +96,5 @@ export class Details implements OnInit {
         });
       }
     });
-  }
-
-  ngOnInit(): void {
-    //Al cargar la página, buscamos si hay algo guardado
-    const savedData = localStorage.getItem('application-data');
-    if (savedData) {
-      // Usamos patchValue para rellenar el formulario con lo que recuperamos
-      this.applyForm.patchValue(JSON.parse(savedData));
-    }    }
-
-  submitApplication() {
-    if (this.applyForm.valid) {
-      //Guardamos los datos actuales en el navegador
-      localStorage.setItem('application-data', JSON.stringify(this.applyForm.value));
-
-      this.housingService.submitApplication(
-        this.applyForm.value.firstName ?? '',
-        this.applyForm.value.lastName ?? '',
-        this.applyForm.value.email ?? ''
-      );
-    }
   }
 }

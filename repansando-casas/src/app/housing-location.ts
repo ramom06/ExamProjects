@@ -10,5 +10,6 @@ export interface HousingLocationInfo {
   coordinate: {
     latitude: number;
     longitude: number;
-  };  price: number;
+  };
+  price: number;
 }

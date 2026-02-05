@@ -48,7 +48,8 @@ export class HousingService implements HousingProvider {
     }
   }
 
-  submitApplication(firstName: string, lastName: string, email: string) {
-    console.log(firstName, lastName, email);
+  submitApplication(firstName: string, email: string, telefono: string, visitDate: string | Date, coment: string, privacity: string | boolean, idCasa : number) {
+    alert("SE HAN GUARDADO LOS DATOS CORRECTAMENTE")
+    console.log(firstName, email, telefono,visitDate,coment, privacity , idCasa);
   }
 }
